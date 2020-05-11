@@ -1,5 +1,9 @@
 def test(text):
     print(text)
 
+#zet je naam er even bij in de list en push dan de file Danku!
 
-test('kek')
+list = ['marc', 'kek']
+
+for words in list:
+    test(words)
