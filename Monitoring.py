@@ -1,9 +1,13 @@
 def test(text):
     print(text)
 
-#zet je naam er even bij in de list en push dan de file Danku!
+def ping():
+    print('merijn werkt heer heeeeeeel hard aan en gaaaaat niet met laurence de heledag werken maar ook aan zijn code')
 
-list = ['marc', 'kek', 'merijn', 'Lisa']
 
-for words in list:
-    test(words)
+def port():
+    print('mark doet dit kek hahaha mark met een k funny :C')
+
+
+ping()
+port()
