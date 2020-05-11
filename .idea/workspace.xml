@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bb4c47c6-c246-4402-9c10-37fff729f9a0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Proftaak.Monitoringscripts.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Monitoring.py" beforeDir="false" afterPath="$PROJECT_DIR$/Monitoring.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="D:\github\Proftaak.Monitoringscripts\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1bkpGGvEa6j2oxShzSL5WTJ3r6j" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Monitoring" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Proftaak.Monitoringscripts" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Monitoring.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Monitoring" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bb4c47c6-c246-4402-9c10-37fff729f9a0" name="Default Changelist" comment="" />
+      <created>1589185848926</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589185848926</updated>
+      <workItem from="1589185863048" duration="223000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1876" height="264" key="GridCell.Tab.0.bottom" timestamp="1589186086030">
+      <screen x="-1920" y="-143" width="1920" height="1050" />
+    </state>
+    <state width="1876" height="264" key="GridCell.Tab.0.bottom/0.0.1920.1050/-1920.-143.1920.1050@-1920.-143.1920.1050" timestamp="1589186086030" />
+    <state width="1876" height="264" key="GridCell.Tab.0.center" timestamp="1589186086030">
+      <screen x="-1920" y="-143" width="1920" height="1050" />
+    </state>
+    <state width="1876" height="264" key="GridCell.Tab.0.center/0.0.1920.1050/-1920.-143.1920.1050@-1920.-143.1920.1050" timestamp="1589186086030" />
+    <state width="1876" height="264" key="GridCell.Tab.0.left" timestamp="1589186086030">
+      <screen x="-1920" y="-143" width="1920" height="1050" />
+    </state>
+    <state width="1876" height="264" key="GridCell.Tab.0.left/0.0.1920.1050/-1920.-143.1920.1050@-1920.-143.1920.1050" timestamp="1589186086030" />
+    <state width="1876" height="264" key="GridCell.Tab.0.right" timestamp="1589186086030">
+      <screen x="-1920" y="-143" width="1920" height="1050" />
+    </state>
+    <state width="1876" height="264" key="GridCell.Tab.0.right/0.0.1920.1050/-1920.-143.1920.1050@-1920.-143.1920.1050" timestamp="1589186086030" />
+    <state x="-1284" y="205" key="com.intellij.ide.util.TipDialog" timestamp="1589186193807">
+      <screen x="-1920" y="-143" width="1920" height="1050" />
+    </state>
+    <state x="-1284" y="205" key="com.intellij.ide.util.TipDialog/0.0.1920.1050/-1920.-143.1920.1050@-1920.-143.1920.1050" timestamp="1589186193807" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Proftaak_Monitoringscripts$Monitoring.coverage" NAME="Monitoring Coverage Results" MODIFIED="1589185978666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
