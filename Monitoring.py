@@ -48,7 +48,7 @@ def scan(addressen, port_start=135, port_end=None, delay=5):
 
 
         S = tk.Scrollbar(root)
-        T = tk.Text(canvas, height=20, width=20)
+        T = tk.Text(root, height=20, width=19)
         S.pack(side=tk.RIGHT, fill=tk.Y)
         T.pack(side=tk.LEFT, fill=tk.Y)
         S.config(command=T.yview)
@@ -58,7 +58,7 @@ def scan(addressen, port_start=135, port_end=None, delay=5):
 
 
         S = tk.Scrollbar(root)
-        T = tk.Text(canvas, height=20, width=20)
+        T = tk.Text(root, height=20, width=19)
         S.pack(side=tk.RIGHT, fill=tk.Y)
         T.pack(side=tk.LEFT, fill=tk.Y)
         S.config(command=T.yview)
@@ -68,12 +68,10 @@ def scan(addressen, port_start=135, port_end=None, delay=5):
 
 
 
-
-
-
 root = tk.Tk()
-canvas = tk.Canvas(root, height=700, width=700, bg="#263D42")
-canvas.pack()
+root.geometry("400x240")
+#canvas = tk.Canvas(root, height=700, width=700, bg="#263D42")
+#canvas.pack()
 
 #frame = tk.Frame(root, bg="White")
 #frame.place(relwidth=0.8,relheight=0.8,relx=0.1, rely=0.1)
