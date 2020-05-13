@@ -1,16 +1,10 @@
 import tkinter as tk
 from tkinter import filedialog, Text
 import os
-
 import socket, threading
 
-
-def test(text):
-    print(text)
-
-
 def ping():
-  print('merijn werkt heer heeeeeeel hard aan en gaaaaat niet met laurence de heledag werken maar ook aan zijn code')
+  print()
 
 def TCP_connect(ip, port, online, offline, delay=5):
     TCPsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -43,57 +37,46 @@ def scan(addressen, port_start=135, port_end=None, delay=5):
 
         online.sort()
         offline.sort()
-
-
-
-
-        S = tk.Scrollbar(root)
-        T = tk.Text(root, height=20, width=19)
-        S.pack(side=tk.RIGHT, fill=tk.Y)
-        T.pack(side=tk.LEFT, fill=tk.Y)
-        S.config(command=T.yview)
-        T.config(yscrollcommand=S.set)
         T.insert(tk.END,"Online ports:")
+        P.insert(tk.END,"Offline ports:")
         T.insert(tk.END,online)
-
-
-        S = tk.Scrollbar(root)
-        T = tk.Text(root, height=20, width=19)
-        S.pack(side=tk.RIGHT, fill=tk.Y)
-        T.pack(side=tk.LEFT, fill=tk.Y)
-        S.config(command=T.yview)
-        T.config(yscrollcommand=S.set)
-        T.insert(tk.END,"Offline ports:")
-        T.insert(tk.END,offline)
-
-
+        P.insert(tk.END,offline)
 
 root = tk.Tk()
-root.geometry("400x240")
-#canvas = tk.Canvas(root, height=700, width=700, bg="#263D42")
-#canvas.pack()
-
-#frame = tk.Frame(root, bg="White")
-#frame.place(relwidth=0.8,relheight=0.8,relx=0.1, rely=0.1)
-
-#Start = tk.Button(root, text="Start", padx=10, pady=5, fg="White", bg="#263D42")
-#Start.pack()
+root.geometry("400x400")
 
 def getTextInput():
     result1 = []
-    result=textExample.get("1.0","end")
+    result=textExample.get(1.0, tk.END+"-1c")
     result1.append(result)
+    scan(result1, port_start=400, port_end=600)
 
-    scan(result1, port_start=1, port_end=400)
-
-textExample=tk.Text(root, height=10)
+textExample=tk.Text(root, height= 1)
 textExample.pack()
-btnRead=tk.Button(root, height=1, width=10, text="Kies IP",
-                    command=getTextInput)
-
+btnRead=tk.Button(root, height=1, width=10, text="Kies IP", command=getTextInput)
 btnRead.pack()
 
+S = tk.Scrollbar(root)
+T = tk.Text(root, height=20, width=19)
+S.pack(side=tk.RIGHT, fill=tk.Y)
+T.pack(side=tk.LEFT, fill=tk.Y)
+S.config(command=T.yview)
+T.config(yscrollcommand=S.set)
 
-ping()
+Z = tk.Scrollbar(root)
+P = tk.Text(root, height=20, width=19)
+Z.pack(side=tk.RIGHT, fill=tk.Y)
+P.pack(side=tk.LEFT, fill=tk.Y)
+Z.config(command=T.yview)
+P.config(yscrollcommand=S.set)
+
+
+
+def clearTextInput():
+  P.delete("1.0","end")
+  T.delete("1.0","end")
+
+textExample.pack()
+btnRead=tk.Button(root, height=1, width=10, text="Clear", command=clearTextInput).place(x=0, y=20)
 
 root.mainloop()
