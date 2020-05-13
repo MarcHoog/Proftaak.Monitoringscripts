@@ -76,9 +76,24 @@ root.geometry("400x240")
 #frame = tk.Frame(root, bg="White")
 #frame.place(relwidth=0.8,relheight=0.8,relx=0.1, rely=0.1)
 
-Start = tk.Button(root, text="Start", padx=10, pady=5, fg="White", bg="#263D42")
-Start.pack()
+#Start = tk.Button(root, text="Start", padx=10, pady=5, fg="White", bg="#263D42")
+#Start.pack()
+
+def getTextInput():
+    result1 = []
+    result=textExample.get("1.0","end")
+    result1.append(result)
+
+    scan(result1, port_start=1, port_end=400)
+
+textExample=tk.Text(root, height=10)
+textExample.pack()
+btnRead=tk.Button(root, height=1, width=10, text="Kies IP",
+                    command=getTextInput)
+
+btnRead.pack()
+
 
 ping()
-scan(['192.168.1.20'], port_start=1, port_end=400)
+
 root.mainloop()
