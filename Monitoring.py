@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import filedialog, Text
 import os
+from os.path import sep
+import sys
 import socket, threading
 
-def ping():
-  print()
+
 
 def TCP_connect(ip, port, online, offline, delay=5):
     TCPsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -42,8 +43,38 @@ def scan(addressen, port_start=135, port_end=None, delay=5):
         T.insert(tk.END,online)
         P.insert(tk.END,offline)
 
+WIN = sys.platform.startswith("win")
+
+def ping(hostname):
+    response = os.system(f"ping -{'n' if WIN else 'c'} 1 {hostname}")
+
+
+    if response == 0:
+
+        up.insert(tk.END,hostname +" Up")
+        up.pack(side=tk.LEFT, fill=tk.Y)
+
+    else:
+
+        down.pack(side=tk.LEFT, fill=tk.Y)
+        up.insert(tk.END,hostname + " Down")
+
+
+
+
+
+
+def run():
+    for host in open(f".{sep}hosts.txt", "r").read().splitlines():
+        print(f"Host gevonden in TXT-file: {host}")
+        ping(host)
+        print("\n")
+
+
+
 root = tk.Tk()
-root.geometry("400x400")
+root.geometry("800x400")
+root.title("Monitoring FIND3")
 
 def getTextInput():
     result1 = []
@@ -70,13 +101,15 @@ P.pack(side=tk.LEFT, fill=tk.Y)
 Z.config(command=T.yview)
 P.config(yscrollcommand=S.set)
 
+up = tk.Text(root, height=20, width=19)
+down = tk.Text(root, height=20, width=19)
 
 
 def clearTextInput():
   P.delete("1.0","end")
   T.delete("1.0","end")
 
-textExample.pack()
-btnRead=tk.Button(root, height=1, width=10, text="Clear", command=clearTextInput).place(x=0, y=20)
 
+btnRead=tk.Button(root, height=1, width=10, text="Clear", command=clearTextInput).place(x=0, y=20)
+run()
 root.mainloop()
