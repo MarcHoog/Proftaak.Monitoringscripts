@@ -25,3 +25,4 @@ def run():
         ping(host)
         print("\n")
 
+run()
