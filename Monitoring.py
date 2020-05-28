@@ -1,12 +1,17 @@
-import tkinter as tk
-from tkinter import filedialog, Text
 import os
 from os.path import sep
+import socket
 import sys
-import socket, threading
+import threading
+import tkinter as tk
+from tkinter import Text
+from tkinter.ttk import Frame, Button, Label
+
+# Global values:
+WIN = sys.platform.startswith("win")
 
 
-
+# Netwerk tools:
 def TCP_connect(ip, port, online, offline, delay=5):
     TCPsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     TCPsocket.settimeout(delay)
@@ -36,80 +41,134 @@ def scan(addressen, port_start=135, port_end=None, delay=5):
         for i in range(len(threads)):
             threads[i].join()
 
-        online.sort()
-        offline.sort()
-        T.insert(tk.END,"Online ports:")
-        P.insert(tk.END,"Offline ports:")
-        T.insert(tk.END,online)
-        P.insert(tk.END,offline)
+        online.sort(), offline.sort()
+        return online, offline
 
-WIN = sys.platform.startswith("win")
 
 def ping(hostname):
     response = os.system(f"ping -{'n' if WIN else 'c'} 1 {hostname}")
-
-
     if response == 0:
-
-        up.insert(tk.END,hostname +" Up")
-        up.pack(side=tk.LEFT, fill=tk.Y)
-
+        return f'{hostname} is UP'
     else:
-
-        down.pack(side=tk.LEFT, fill=tk.Y)
-        up.insert(tk.END,hostname + " Down")
+        return f'{hostname} is DOWN'
 
 
+# tkinter Events:
+def getTXTinput():
+    IPlist = []
+    input_IPV4 = txt_IPinput.get(1.0, tk.END + '-1c')
+    input_Portstart = txt_portstart.get(1.0, tk.END + '-1c')
+    input_Portend = txt_portend.get(1.0, tk.END + '-1c')
+    if input_IPV4.replace(' ', '') == '':
+        txt_IPinput.delete(1.0, tk.END)
+        return
+    elif input_Portstart.replace(' ', '') == '':
+        txt_portstart.delete(1.0, tk.END)
+        return
+    else:
+        CSV_String = f"{input_IPV4},{input_Portstart},{input_Portend}"
+        with open("hosts.txt", "a+") as file_object:
+            file_object.seek(0)
+            data = file_object.read(100)
+            if len(data) > 0:
+                file_object.write("\n")
+            file_object.write(CSV_String)
 
-
+    for host in open(f".{sep}hosts.txt", "r").read().splitlines():
+        print(host)
+        IPlist.append(host)
 
 
 def run():
+    output = []
     for host in open(f".{sep}hosts.txt", "r").read().splitlines():
-        print(f"Host gevonden in TXT-file: {host}")
-        ping(host)
-        print("\n")
+        x = host.split(',')
+        if ping(x[0]) == f'{x[0]} is UP':
+            onlineports, offlineports = scan(x[0], int(x[1]), int(x[2]))
+            output.append(f'HOST:   {x[0]} is  ONLINE' + '\n' +
+                          f'   ONLINE-PORTS: {onlineports}' + '\n' +
+                          f'   OFFLINE-PORTS: {offlineports}' + '\n' + '\n')
+        else:
+            output.append(f'HOST:   {x[0]} is  OFFLINE' + '\n' + '\n')
+
+    txt_OUTPUT.config(state='normal')
+    txt_OUTPUT.delete(1.0, tk.END)
+    txt_OUTPUT.insert(1.0, output)
+    txt_OUTPUT.config(state='disabled')
 
 
+def FORCERUN():
+    textboxes = [txt_OUTPUT, txt_Result]
+    for boxes in textboxes:
+        boxes.config(state='normal')
+        boxes.delete(1.0, tk.END)
+        boxes.config(state='disabled')
+    run()
 
+
+# tkinter Gui:
 root = tk.Tk()
-root.geometry("800x400")
-root.title("Monitoring FIND3")
-
-def getTextInput():
-    result1 = []
-    result=textExample.get(1.0, tk.END+"-1c")
-    result1.append(result)
-    scan(result1, port_start=400, port_end=600)
-
-textExample=tk.Text(root, height= 1)
-textExample.pack()
-btnRead=tk.Button(root, height=1, width=10, text="Kies IP", command=getTextInput)
-btnRead.pack()
-
-S = tk.Scrollbar(root)
-T = tk.Text(root, height=20, width=19)
-S.pack(side=tk.RIGHT, fill=tk.Y)
-T.pack(side=tk.LEFT, fill=tk.Y)
-S.config(command=T.yview)
-T.config(yscrollcommand=S.set)
-
-Z = tk.Scrollbar(root)
-P = tk.Text(root, height=20, width=19)
-Z.pack(side=tk.RIGHT, fill=tk.Y)
-P.pack(side=tk.LEFT, fill=tk.Y)
-Z.config(command=T.yview)
-P.config(yscrollcommand=S.set)
-
-up = tk.Text(root, height=20, width=19)
-down = tk.Text(root, height=20, width=19)
+root.geometry = '700x800'
 
 
-def clearTextInput():
-  P.delete("1.0","end")
-  T.delete("1.0","end")
+def task():
+    txt_Result.config(state='normal')
+    txt_Result.delete(1.0, tk.END)
+    txt_Result.insert(1.0, 'Gathering Information')
+    txt_Result.config(state='disabled')
+    run()
+    txt_Result.config(state='normal')
+    txt_Result.delete(1.0, tk.END)
+    txt_Result.insert(1.0, 'DONE Wait for Estimate 1 minute for new Result')
+    txt_Result.config(state='disabled')
+    root.after(60000, task)
 
 
-btnRead=tk.Button(root, height=1, width=10, text="Clear", command=clearTextInput).place(x=0, y=20)
-run()
+# above frame
+frame1 = Frame(relief=tk.RAISED, borderwidth=1)
+frame1.pack(fill=tk.X)
+
+lbl_TITLE = Label(frame1, text="PING TEST", width=10)
+lbl_TITLE.pack(side=tk.LEFT, padx=5, pady=5)
+
+clearBtn = Button(frame1, text="FORCE", command=FORCERUN)
+clearBtn.pack(side=tk.RIGHT, padx=5, pady=5)
+
+pingBtn = Button(frame1, text="ADD", command=getTXTinput)
+pingBtn.pack(side=tk.RIGHT)
+
+txt_portend = Text(frame1, height=1, width=5)
+txt_portend.pack(side=tk.RIGHT, padx=5)
+lbl_portend = Label(frame1, text="P-END")
+lbl_portend.pack(side=tk.RIGHT, padx=5, pady=5)
+
+txt_portstart = Text(frame1, height=1, width=5)
+txt_portstart.pack(side=tk.RIGHT, padx=5)
+lbl_portstart = Label(frame1, text="P-START")
+lbl_portstart.pack(side=tk.RIGHT, padx=5, pady=5)
+
+txt_IPinput = tk.Text(frame1, height=1, width=15)
+txt_IPinput.pack(side=tk.RIGHT, padx=5)
+lbl_IPinput = Label(frame1, text="IPV4")
+lbl_IPinput.pack(side=tk.RIGHT, padx=5, pady=5)
+
+# Second frame
+frame2 = Frame()
+frame2.pack(fill=tk.X)
+
+lbl_Result = tk.Label(frame2, text='Status', width=10)
+lbl_Result.pack(side=tk.LEFT, padx=5)
+txt_Result = tk.Text(frame2, height=1, state='disabled', width=40)
+txt_Result.pack(side=tk.LEFT, padx=20)
+
+# Third frame
+frame3 = Frame()
+frame3.pack(fill=tk.X)
+
+lbl_Filler1 = tk.Label(frame3, width=10)
+lbl_Filler1.pack(side=tk.LEFT, padx=5)
+txt_OUTPUT = tk.Text(frame3, height=20, width=80)
+txt_OUTPUT.pack(side=tk.LEFT, padx=20, pady=10)
+
+root.after(60000, task)
 root.mainloop()
