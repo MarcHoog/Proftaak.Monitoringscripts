@@ -10,7 +10,7 @@ def run():
     # you can convert that object to a dictionary
     dict(psutil.virtual_memory()._asdict())
 
-    run_timer(10)
+    run_timer(1)
 
 
 def run_timer(seconds):
