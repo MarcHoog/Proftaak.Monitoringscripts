@@ -4,6 +4,9 @@ import socket
 import sys
 import threading
 import tkinter as tk
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from tkinter import Text
 from tkinter.ttk import Frame, Button, Label
 
@@ -123,6 +126,8 @@ def task():
     txt_Result.config(state='disabled')
     root.after(60000, task)
 
+data = pd.read_excel(r'C:\Users\Teun\Documents\School\Vakken\ICT-Infrastructure\Proftaak\Proftaak.xlsx') #for an earlier version of Excel use 'xls'
+df = pd.DataFrame(data, columns = ['Host','Ping time in sec'])
 
 # above frame
 frame1 = Frame(relief=tk.RAISED, borderwidth=1)
@@ -171,4 +176,14 @@ txt_OUTPUT = tk.Text(frame3, height=20, width=80)
 txt_OUTPUT.pack(side=tk.LEFT, padx=20, pady=10)
 
 root.after(60000, task)
+
+# Bar chart
+figure = plt.Figure(figsize=(6,5), dpi=100)
+ax = figure.add_subplot(111)
+chart_type = FigureCanvasTkAgg(figure, root)
+chart_type.get_tk_widget().pack()
+df = df[['Host','Ping time in sec']].groupby('Host').sum()
+df.plot(kind='bar', legend=True, ax=ax)
+ax.set_title('Ping Summary')
+
 root.mainloop()
