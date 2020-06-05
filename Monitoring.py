@@ -5,6 +5,7 @@ import sys
 import threading
 import tkinter as tk
 import pandas as pd
+import xlrd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from tkinter import Text
@@ -101,7 +102,7 @@ def run():
 
 
 def FORCERUN():
-    textboxes = [txt_OUTPUT, txt_Result]
+    textboxes = [txt_OUTPUT]
     for boxes in textboxes:
         boxes.config(state='normal')
         boxes.delete(1.0, tk.END)
@@ -115,18 +116,10 @@ root.geometry = '700x800'
 
 
 def task():
-    txt_Result.config(state='normal')
-    txt_Result.delete(1.0, tk.END)
-    txt_Result.insert(1.0, 'Gathering Information')
-    txt_Result.config(state='disabled')
     run()
-    txt_Result.config(state='normal')
-    txt_Result.delete(1.0, tk.END)
-    txt_Result.insert(1.0, 'DONE Wait for Estimate 1 minute for new Result')
-    txt_Result.config(state='disabled')
     root.after(60000, task)
 
-data = pd.read_excel(r'C:\Users\Teun\Documents\School\Vakken\ICT-Infrastructure\Proftaak\Proftaak.xlsx') #for an earlier version of Excel use 'xls'
+data = pd.read_excel(r'Proftaak.xlsx') #for an earlier version of Excel use 'xls'
 df = pd.DataFrame(data, columns = ['Host','Ping time in sec'])
 
 # above frame
@@ -157,27 +150,12 @@ txt_IPinput.pack(side=tk.RIGHT, padx=5)
 lbl_IPinput = Label(frame1, text="IPV4")
 lbl_IPinput.pack(side=tk.RIGHT, padx=5, pady=5)
 
-# Second frame
-frame2 = Frame()
+frame2= Frame()
 frame2.pack(fill=tk.X)
 
-lbl_Result = tk.Label(frame2, text='Status', width=10)
-lbl_Result.pack(side=tk.LEFT, padx=5)
-txt_Result = tk.Text(frame2, height=1, state='disabled', width=40)
-txt_Result.pack(side=tk.LEFT, padx=20)
-
-# Third frame
-frame3 = Frame()
-frame3.pack(fill=tk.X)
-
-lbl_Filler1 = tk.Label(frame3, width=10)
+lbl_Filler1 = tk.Label(frame2, width=10)
 lbl_Filler1.pack(side=tk.LEFT, padx=5)
-txt_OUTPUT = tk.Text(frame3, height=20, width=80)
-txt_OUTPUT.pack(side=tk.LEFT, padx=20, pady=10)
 
-root.after(60000, task)
-
-# Bar chart
 figure = plt.Figure(figsize=(6,5), dpi=100)
 ax = figure.add_subplot(111)
 chart_type = FigureCanvasTkAgg(figure, root)
@@ -186,4 +164,16 @@ df = df[['Host','Ping time in sec']].groupby('Host').sum()
 df.plot(kind='bar', legend=True, ax=ax)
 ax.set_title('Ping Summary')
 
+# Third frame
+frame3 = Frame()
+frame3.pack(fill=tk.X)
+
+
+txt_OUTPUT = tk.Text(frame3, height=20, width=85)
+txt_OUTPUT.pack(side=tk.LEFT, padx=20, pady=10)
+
+# Bar chart
+
+
+root.after(60000, task)
 root.mainloop()
