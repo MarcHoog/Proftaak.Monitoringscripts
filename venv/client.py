@@ -9,10 +9,10 @@ def send_data():
         CPU = (CPU.user + CPU.system + CPU.idle)
     RAM = psutil.virtual_memory().percent
     hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
+    ip_address = socket.gethostbyname(hostname + ".local")
 
-    HOST, PORT = "localhost", 9999
-    data = f"{ip_address},{CPU},{RAM}"
+    HOST, PORT = "localhost", 9998
+    data = f"{hostname},{CPU},{RAM}"
 
     # Create a socket (SOCK_STREAM means a TCP socket)
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
