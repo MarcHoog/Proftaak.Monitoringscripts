@@ -24,7 +24,6 @@ def send_data():
         received = str(sock.recv(1024), "utf-8")
 
     print("Sent:     {}".format(data))
-    print("Received: {}".format(received))
 
 
 def run_timer(seconds):
