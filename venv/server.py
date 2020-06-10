@@ -1,7 +1,6 @@
 import socketserver
-import csv
 import os
-
+import pymssql
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
@@ -9,24 +8,18 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         print("{} wrote:".format(self.client_address[0]))
         output = str(self.data, 'utf-8')
         output2 = output.split(',')  # split de string om er een array van te maken
-        print(output2)
-        CSVTOP1 = ['computer', 'ram', 'cpu']  # Maak een top row voor als een nieuwe file aangemaakt moet worden
-
-        def CSVTHING(Filename, CSVtop=None, CSVdata=None):
-            if os.path.exists('./' + Filename):  # Test of de file er al is of niet
-                with open(Filename, 'a+', newline='') as F:  # zo ja schrijft de nieuwe row erbij
-                    writer = csv.writer(F)
-                    writer.writerow(CSVdata)
-            else:
-                with open(Filename, 'w', newline='') as F:  # zo niet schrijft eerst de top row en daarna de data pas
-                    rowlist = [CSVtop, CSVdata]
-                    writer = csv.writer(F)
-                    writer.writerows(rowlist)
-
-        CSVTHING('test.csv', CSVtop=CSVTOP1, CSVdata=output2)  # draaid de functie
+        hostname = output2[0]
+        cpu = output2[1]
+        ram = output2[2]
+        conn = pymssql.connect(server='145.220.75.101', user='sa', password='P@ssw0rd', database='monitoring')
+        cursor = conn.cursor()
+        querie1 = f"INSERT INTO Performance(Datum,hostname, CPU, RAM) VALUES (GETDATE(),'{hostname}', '{cpu}', '{ram}');"
+        cursor.execute(querie1)
+        conn.commit()
 
 
-HOST, PORT = "localhost", 9998
+        print(hostname + cpu + ram)
+HOST, PORT = "localhost", 9999
 server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
 
 # Activate the server; this will keep running until you
