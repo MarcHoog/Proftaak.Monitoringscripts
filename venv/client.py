@@ -11,7 +11,7 @@ def send_data():
     hostname = socket.gethostname()
     ip_address = socket.gethostbyname(hostname + ".local")
 
-    HOST, PORT = "localhost", 9998
+    HOST, PORT = "10.0.0.9", 9998
     data = f"{hostname},{CPU},{RAM}"
 
     # Create a socket (SOCK_STREAM means a TCP socket)
