@@ -19,7 +19,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
 
         print(hostname + cpu + ram)
-HOST, PORT = "localhost", 9999
+HOST, PORT = "localhost", 9998
 server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
 
 # Activate the server; this will keep running until you
